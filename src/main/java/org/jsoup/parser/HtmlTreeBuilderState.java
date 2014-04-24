@@ -596,10 +596,12 @@ enum HtmlTreeBuilderState {
                             tb.process(new Token.StartTag(name)); // if no p to close, creates an empty <p></p>
                             return tb.process(endTag);
                         } else {
-                            tb.generateImpliedEndTags(name);
-                            if (!tb.currentElement().nodeName().equals(name))
-                                tb.error(this);
-                            tb.popStackToClose(name);
+                            if (!tb.currentElement().nodeName().equals(name)) {
+                              tb.error(this);
+                            } else {
+                              tb.generateImpliedEndTags(name);
+                              tb.popStackToClose(name);
+                            }
                         }
                     } else if (name.equals("li")) {
                         if (!tb.inListItemScope(name)) {

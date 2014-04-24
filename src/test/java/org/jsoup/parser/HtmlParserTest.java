@@ -529,6 +529,13 @@ public class HtmlParserTest {
         assertEquals(want, doc.body().html());
     }
 
+    @Test public void handlesDoubleClosedLink() {
+      String h = "<p>Example Text <a href=\"http://example.com/\"><p>Link text in paragraph</p></a></a></p>";
+      Document doc = Jsoup.parse(h);
+      String want = "<p>Example Text <a href=\"http://example.com/\"><p>Link text in paragraph</p></a></p>";
+      assertEquals(want, doc.body().html());
+    }
+
     @Test public void reconstructFormattingElements() {
         // tests attributes and multi b
         String h = "<p><b class=one>One <i>Two <b>Three</p><p>Hello</p>";
